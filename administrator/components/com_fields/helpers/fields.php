@@ -167,7 +167,7 @@ class FieldsHelper
 				}
 				else
 				{
-					$field->value = isset($fieldValues[$field->id])? $fieldValues[$field->id] : null;
+					$field->value = isset($fieldValues[$field->id]) ? $fieldValues[$field->id] : null;
 				}
 
 				if ($field->value === '' || $field->value === null)
