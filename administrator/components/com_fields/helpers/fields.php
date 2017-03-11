@@ -145,9 +145,7 @@ class FieldsHelper
 				self::$fieldCache = JModelLegacy::getInstance('Field', 'FieldsModel', array('ignore_request' => true));
 			}
 
-			$fieldIds = array_map(function($f) { return $f->id; }, $fields);
-
-			$fieldValues = self::$fieldCache->getFieldValues($fieldIds, $context, $item->id);
+			$fieldValues = self::$fieldCache->getFieldValues($context, $item->id);
 
 			$new = array();
 
@@ -169,7 +167,7 @@ class FieldsHelper
 				}
 				else
 				{
-					$field->value = $fieldValues[$field->id];
+					$field->value = isset($fieldValues[$field->id])? $fieldValues[$field->id] : null;
 				}
 
 				if ($field->value === '' || $field->value === null)

@@ -580,9 +580,9 @@ class FieldsModelField extends JModelAdmin
 	 *
 	 * @since  3.7.0
 	 */
-	public function getFieldValues($fieldIds, $context, $itemId)
+	public function getFieldValues($context, $itemId)
 	{
-		$key = md5($fieldIds . $context . $itemId);
+		$key = md5($context . $itemId);
 
 		if (!key_exists($key, $this->valueCache))
 		{
@@ -592,7 +592,6 @@ class FieldsModelField extends JModelAdmin
 
 			$query->select(array($query->qn('field_id'), $query->qn('value')))
 				->from($query->qn('#__fields_values'))
-				->where($query->qn('field_id') . ' in (' . implode(',', ArrayHelper::toInteger($fieldIds)) . ')')
 				->where($query->qn('context') . ' = ' . $query->q($context))
 				->where($query->qn('item_id') . ' = ' . $query->q($itemId));
 
