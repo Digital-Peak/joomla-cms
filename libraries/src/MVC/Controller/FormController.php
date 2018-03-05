@@ -937,12 +937,6 @@ class FormController extends BaseController
 		// Loop over all fields
 		foreach ($form->getFieldset() as $field)
 		{
-			// Make sure the data array has an entry when there is no group
-			if (!$field->group && !key_exists($field->fieldname, $data))
-			{
-				$data[$field->fieldname] = false;
-			}
-
 			// If the field has no group, we are done here
 			if (!$field->group)
 			{
