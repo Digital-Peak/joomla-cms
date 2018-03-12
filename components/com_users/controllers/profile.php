@@ -117,7 +117,7 @@ class UsersControllerProfile extends UsersController
 		$objData = (object) $requestData;
 		$app->triggerEvent(
 			'onContentNormaliseRequestData',
-			array($this->option . '.' . $this->context, $objData, $form)
+			array('com_users.user', $objData, $form)
 		);
 		$requestData = (array) $objData;
 
