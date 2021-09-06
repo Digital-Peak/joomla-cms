@@ -11,6 +11,7 @@ namespace Joomla\Component\Media\Administrator\Event;
 
 \defined('_JEXEC') or die;
 
+use BadMethodCallException;
 use Joomla\CMS\Event\AbstractEvent;
 
 /**
@@ -20,4 +21,36 @@ use Joomla\CMS\Event\AbstractEvent;
  */
 class FetchMediaFileEvent extends AbstractEvent
 {
+	/**
+	 * Constructor.
+	 *
+	 * @param   string  $name       The event name.
+	 * @param   array   $arguments  The event arguments.
+	 *
+	 * @throws  BadMethodCallException
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public function __construct($name, array $arguments = array())
+	{
+		parent::__construct($name, $arguments);
+
+		// Check for required arguments
+		if (!\array_key_exists('file', $arguments) || !is_object($arguments['file']))
+		{
+			throw new BadMethodCallException("Argument 'file' of event $name is not of the expected type");
+		}
+	}
+
+	/**
+	 * Returns the event file.
+	 *
+	 * @return object
+	 *
+	 * @since  __DEPLOY_VERSION__
+	 */
+	public function getFile()
+	{
+		return $this->arguments['file'];
+	}
 }
