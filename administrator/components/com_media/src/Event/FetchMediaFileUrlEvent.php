@@ -21,47 +21,35 @@ use Joomla\CMS\Event\AbstractEvent;
 class FetchMediaFileUrlEvent extends AbstractEvent
 {
 	/**
-	 * @var string
-	 * @since __DEPLOY_VERSION__
-	 */
-	private $url;
-
-	/**
 	 * Constructor.
 	 *
-	 * @param   string  $name  The event name.
-	 * @param   string  $url   The url.
+	 * @param   string  $name       The event name.
+	 * @param   array   $arguments  The event arguments.
+	 *
+	 * @throws  \BadMethodCallException
 	 *
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public function __construct($name, string $url)
+	public function __construct($name, array $arguments = array())
 	{
-		parent::__construct($name, []);
+		parent::__construct($name, $arguments);
 
-		$this->url = $url;
+		// Check for required arguments
+		if (!\array_key_exists('url', $arguments) || !is_string($arguments['url']))
+		{
+			throw new \BadMethodCallException("Argument 'url' of event $name is not of the expected type");
+		}
 	}
 
 	/**
 	 * Returns the event url.
 	 *
-	 * @return stdClass
+	 * @return string
 	 *
 	 * @since  __DEPLOY_VERSION__
 	 */
 	public function getUrl(): string
 	{
-		return $this->url;
-	}
-
-	/**
-	 * Sets the event url.
-	 *
-	 * @param stdClass
-	 *
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public function setUrl(string $url): void
-	{
-		$this->url = $url;
+		return $this->arguments['url'];
 	}
 }
