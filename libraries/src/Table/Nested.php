@@ -565,6 +565,12 @@ class Nested extends Table
 					return false;
 				}
 			}
+			else
+			{
+				$this->setError($asset->getError());
+
+				return false;
+			}
 		}
 
 		// Lock the table for writing.
