@@ -441,7 +441,6 @@ trait DisplayTrait
 		$scriptOptions   = array_merge(
 			$scriptOptions,
 			[
-				'deprecation_warnings' => JDEBUG ? true : false,
 				'suffix'   => JDEBUG ? '' : '.min',
 				'baseURL'  => Uri::root(true) . '/media/vendor/tinymce',
 				'directionality' => $language->isRtl() ? 'rtl' : 'ltr',
