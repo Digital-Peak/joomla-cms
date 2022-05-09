@@ -41,10 +41,10 @@ trait KnownButtons
 			'italic'         => ['label' => 'Italic'],
 			'underline'      => ['label' => 'Underline'],
 			'strikethrough'  => ['label' => 'Strikethrough'],
-			'styleselect'    => ['label' => Text::_('PLG_TINY_TOOLBAR_BUTTON_STYLESELECT'), 'text' => 'Formats'],
-			'formatselect'   => ['label' => Text::_('PLG_TINY_TOOLBAR_BUTTON_FORMATSELECT'), 'text' => 'Paragraph'],
-			'fontselect'     => ['label' => Text::_('PLG_TINY_TOOLBAR_BUTTON_FONTSELECT'), 'text' => 'Font Family'],
-			'fontsizeselect' => ['label' => Text::_('PLG_TINY_TOOLBAR_BUTTON_FONTSIZESELECT'), 'text' => 'Font Sizes'],
+			'styles'         => ['label' => Text::_('PLG_TINY_TOOLBAR_BUTTON_STYLESELECT'), 'text' => 'Formats'],
+			'blocks'         => ['label' => Text::_('PLG_TINY_TOOLBAR_BUTTON_FORMATSELECT'), 'text' => 'Paragraph'],
+			'fontfamily'     => ['label' => Text::_('PLG_TINY_TOOLBAR_BUTTON_FONTSELECT'), 'text' => 'Font Family'],
+			'fontsize'       => ['label' => Text::_('PLG_TINY_TOOLBAR_BUTTON_FONTSIZESELECT'), 'text' => 'Font Sizes'],
 
 			'alignleft'      => ['label' => 'Align left'],
 			'aligncenter'    => ['label' => 'Align center'],
@@ -78,7 +78,7 @@ trait KnownButtons
 
 			// Buttons from the plugins
 			'anchor'         => ['label' => 'Anchor', 'plugin' => 'anchor'],
-			'hr'             => ['label' => 'Horizontal line', 'plugin' => 'hr'],
+			'hr'             => ['label' => 'Horizontal line'],
 			'ltr'            => ['label' => 'Left to right', 'plugin' => 'directionality'],
 			'rtl'            => ['label' => 'Right to left', 'plugin' => 'directionality'],
 			'code'           => ['label' => 'Source code', 'plugin' => 'code'],
@@ -92,7 +92,7 @@ trait KnownButtons
 			'media'          => ['label' => 'Insert/edit video', 'plugin' => 'media'],
 			'image'          => ['label' => 'Insert/edit image', 'plugin' => 'image'],
 			'pagebreak'      => ['label' => 'Page break', 'plugin' => 'pagebreak'],
-			'print'          => ['label' => 'Print', 'plugin' => 'print'],
+			'print'          => ['label' => 'Print'],
 			'preview'        => ['label' => 'Preview', 'plugin' => 'preview'],
 			'fullscreen'     => ['label' => 'Fullscreen', 'plugin' => 'fullscreen'],
 			'template'       => ['label' => 'Insert template', 'plugin' => 'template'],
