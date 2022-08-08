@@ -44,10 +44,6 @@ if (!defined('JPATH_LIBRARIES')) {
     define('JPATH_LIBRARIES', JPATH_BASE . '/libraries');
 }
 
-if (!defined('JPATH_CACHE')) {
-    define('JPATH_CACHE', JPATH_BASE . '/cache');
-}
-
 if (!defined('JPATH_CONFIGURATION')) {
     define('JPATH_CONFIGURATION', JPATH_BASE);
 }
@@ -58,6 +54,10 @@ if (!defined('JPATH_SITE')) {
 
 if (!defined('JPATH_ADMINISTRATOR')) {
     define('JPATH_ADMINISTRATOR', JPATH_ROOT . '/administrator');
+}
+
+if (!defined('JPATH_CACHE')) {
+    define('JPATH_CACHE', JPATH_ADMINISTRATOR . '/cache');
 }
 
 if (!defined('JPATH_API')) {
