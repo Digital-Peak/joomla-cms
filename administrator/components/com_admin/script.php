@@ -230,7 +230,7 @@ class JoomlaInstallerScript
              * 'pre_function' => Name of an optional migration function to be called before
              *                   uninstalling, `null` if not used.
              */
-             ['type' => 'plugin', 'element' => 'demotasks', 'folder' => 'task', 'client_id' => 0, 'pre_function' => 'deleteDemoTasks'],
+             ['type' => 'plugin', 'element' => 'demotasks', 'folder' => 'task', 'client_id' => 0, 'pre_function' => null],
         ];
 
         $db = Factory::getDbo();
@@ -281,31 +281,6 @@ class JoomlaInstallerScript
                 echo Text::sprintf('JLIB_DATABASE_ERROR_FUNCTION_FAILED', $e->getCode(), $e->getMessage()) . '<br>';
                 throw $e;
             }
-        }
-    }
-
-    /**
-     * This method deletes demo tasks of the obsolete demo task plugin.
-     *
-     * @param   \stdClass  $data  Row from the extensions table
-     *
-     * @return  void
-     *
-     * @since   __DEPLOY_VERSION__
-     */
-    private function deleteDemoTasks($data)
-    {
-        $db = Factory::getDbo();
-
-        try {
-            $db->setQuery(
-                $db->getQuery(true)
-                    ->delete($db->quoteName('#__scheduler_tasks'))
-                    ->where($db->quoteName('type') . ' = ' . $db->quote('demoTask_r1.sleep'))
-            )->execute();
-        } catch (\Exception $e) {
-            echo Text::sprintf('JLIB_DATABASE_ERROR_FUNCTION_FAILED', $e->getCode(), $e->getMessage()) . '<br>';
-            throw $e;
         }
     }
 
