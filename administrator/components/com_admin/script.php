@@ -287,7 +287,7 @@ class JoomlaInstallerScript
     /**
      * This method deletes demo tasks of the obsolete demo task plugin.
      *
-     * @param   \stdClass  $data  Object with `extension_id`, `enabled` and `params` of the extension
+     * @param   \stdClass  $data  Row from the extensions table
      *
      * @return  void
      *
