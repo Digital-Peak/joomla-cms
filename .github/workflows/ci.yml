@@ -242,7 +242,10 @@ jobs:
             /github/home/.cache/Cypress
           key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
       - name: Run System tests
-        run: bash tests/System/entrypoint.sh "$(pwd)" ${{ matrix.config.test_group }} ${{ matrix.config.db_engine }} ${{ matrix.config.db_host }} ${{ matrix.browser }}
+        run:  |
+          npx cypress install
+          npx cypress verify
+          bash tests/System/entrypoint.sh "$(pwd)" ${{ matrix.config.test_group }} ${{ matrix.config.db_engine }} ${{ matrix.config.db_host }} ${{ matrix.browser }}
       - name: Archive test results results
         uses: actions/upload-artifact@v4
         if: always()
