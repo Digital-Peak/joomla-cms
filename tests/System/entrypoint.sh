@@ -16,8 +16,8 @@ echo "[RUNNER] Prepare test environment for $BROWSER"
 cd $JOOMLA_BASE
 
 echo "[RUNNER] Copy files from $JOOMLA_BASE to test installation /tmp/www/$TEST_GROUP/"
-ls -la /
-ls -la /tmp
+id
+mkdir -p /tmp/www/$TEST_GROUP
 rsync -a --exclude-from=tests/System/exclude.txt $JOOMLA_BASE/ /tmp/www/$TEST_GROUP/
 chown -R www-data /tmp/www/$TEST_GROUP/
 
