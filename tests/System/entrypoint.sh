@@ -17,9 +17,12 @@ cd $JOOMLA_BASE
 
 echo "[RUNNER] Copy files from $JOOMLA_BASE to test installation /tmp/www/$TEST_GROUP/"
 id
+echo "$USER"
+ls -la /tmp/www
+ls -la /tmp/www/cmysqlmax
 mkdir -p /tmp/www/$TEST_GROUP
 rsync -r --exclude-from=tests/System/exclude.txt $JOOMLA_BASE/ /tmp/www/$TEST_GROUP/
-chown -R www-data /tmp/www/$TEST_GROUP/
+# chown -R www-data /tmp/www/$TEST_GROUP/
 
 # Required for media manager tests
 chmod -R 777 /tmp/www/$TEST_GROUP/images
