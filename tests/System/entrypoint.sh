@@ -16,7 +16,7 @@ echo "[RUNNER] Prepare test environment for $BROWSER"
 cd $JOOMLA_BASE
 
 echo "[RUNNER] Copy files from $JOOMLA_BASE to test installation /tests/www/$TEST_GROUP/"
-rsync -a --exclude-from=tests/System/exclude.txt $JOOMLA_BASE/ /tests/www/$TEST_GROUP/
+rsync -r --exclude-from=tests/System/exclude.txt $JOOMLA_BASE/ /tests/www/$TEST_GROUP/
 chown -R www-data /tests/www/$TEST_GROUP/
 
 # Required for media manager tests
