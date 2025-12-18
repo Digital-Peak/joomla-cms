@@ -17,8 +17,6 @@ cd $JOOMLA_BASE
 
 echo "[RUNNER] Copy files from $JOOMLA_BASE to test installation /tests/www/$TEST_GROUP/"
 rsync -r --exclude-from=tests/System/exclude.txt $JOOMLA_BASE/ /tests/www/$TEST_GROUP/
-chmod -R 777 /tests/www/$TEST_GROUP
-chown -R www-data /tests/www/$TEST_GROUP/
 
 # Required for media manager tests
 
@@ -31,7 +29,6 @@ a2enmod rewrite
 apache2ctl -D FOREGROUND &
 
 echo "[RUNNER] Run cypress tests"
-chmod +rwx /root
 
 # Copy the cypress config if it doesn't exist
 if [ ! -f cypress.config.mjs ]; then
