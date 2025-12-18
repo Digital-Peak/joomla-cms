@@ -85,7 +85,6 @@ jobs:
     name: Run system tests
     runs-on: ubuntu-latest
     container: joomlaprojects/docker-images:firefox
-    needs: [tests-system-prepare]
     strategy:
       matrix:
         browser: ['firefox']
