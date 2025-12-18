@@ -17,10 +17,10 @@ cd $JOOMLA_BASE
 
 echo "[RUNNER] Copy files from $JOOMLA_BASE to test installation /tests/www/$TEST_GROUP/"
 rsync -r --exclude-from=tests/System/exclude.txt $JOOMLA_BASE/ /tests/www/$TEST_GROUP/
-sudo chown -R www-data /tests/www/$TEST_GROUP/
+chmod -R 777 /tests/www/$TEST_GROUP
+chown -R www-data /tests/www/$TEST_GROUP/
 
 # Required for media manager tests
-sudo chmod -R 777 /tests/www/$TEST_GROUP/images
 
 # Disable opcache for configuration.php, otherwise there are issues when the config is changed in a test
 echo "/tests/www/$TEST_GROUP/configuration.php" > /tmp/blacklist.ini
@@ -31,7 +31,7 @@ a2enmod rewrite
 apache2ctl -D FOREGROUND &
 
 echo "[RUNNER] Run cypress tests"
-sudo chmod +rwx /root
+chmod +rwx /root
 
 # Copy the cypress config if it doesn't exist
 if [ ! -f cypress.config.mjs ]; then
