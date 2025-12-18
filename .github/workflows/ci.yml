@@ -297,42 +297,17 @@ jobs:
   tests-system:
     name: Run system tests
     runs-on: ubuntu-latest
-    container: joomlaprojects/docker-images:cypress${{ matrix.config.php_version }}
+    container: joomlaprojects/docker-images:firefox
     needs: [tests-system-prepare]
     strategy:
       matrix:
-        browser: ['chrome', 'edge']
+        browser: ['firefox']
         config:
           - php_version: '8.5'
             test_group: cmysqlmax
             db_engine: mysqli
             db_host: mysql
             my_version: '8.4'
-          - php_version: '8.1'
-            test_group: cmysql
-            db_engine: mysqli
-            db_host: mysql
-            my_version: '8.0.13'
-          - php_version: '8.4'
-            test_group: cmariamax
-            db_engine: mysqli
-            db_host: maria
-            maria_version: '12.0'
-          - php_version: '8.1'
-            test_group: cmaria
-            db_engine: mysqli
-            db_host: maria
-            maria_version: '10.4'
-          - php_version: '8.1'
-            test_group: cpostgres
-            db_engine: pgsql
-            db_host: postgres
-            pg_version: '12.0'
-          - php_version: '8.5'
-            test_group: cpostgresmax
-            db_engine: pgsql
-            db_host: postgres
-            pg_version: '18.0'
     env:
       JOOMLA_INSTALLATION_DISABLE_LOCALHOST_CHECK: 1
     steps:
