@@ -10,7 +10,7 @@ DB_ENGINE=$3
 DB_HOST=$4
 BROWSER=${5:-firefox}
 
-echo "[RUNNER] Prepare test environment for $BROWSER"
+echo "[RUNNER] Prepare test environment for $BROWSER $MOZ_DISABLE_CONTENT_SANDBOX"
 
 # Switch to Joomla base directory
 cd $JOOMLA_BASE
