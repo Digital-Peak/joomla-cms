@@ -15,20 +15,15 @@ echo "[RUNNER] Prepare test environment for $BROWSER"
 # Switch to Joomla base directory
 cd $JOOMLA_BASE
 
-echo "[RUNNER] Copy files from $JOOMLA_BASE to test installation /tmp/www/$TEST_GROUP/"
-id
-env
-mkdir -p /tmp/www/$TEST_GROUP
-rsync -r --exclude-from=tests/System/exclude.txt $JOOMLA_BASE/ /tmp/www/$TEST_GROUP/
-ls -la /tmp/www
-ls -la /tmp/www/cmysqlmax
-# chown -R www-data /tmp/www/$TEST_GROUP/
+echo "[RUNNER] Copy files from $JOOMLA_BASE to test installation /tests/www/$TEST_GROUP/"
+rsync -a --exclude-from=tests/System/exclude.txt $JOOMLA_BASE/ /tests/www/$TEST_GROUP/
+chown -R www-data /tests/www/$TEST_GROUP/
 
 # Required for media manager tests
-chmod -R 777 /tmp/www/$TEST_GROUP/images
+chmod -R 777 /tests/www/$TEST_GROUP/images
 
 # Disable opcache for configuration.php, otherwise there are issues when the config is changed in a test
-echo "/tmp/www/$TEST_GROUP/configuration.php" > /tmp/blacklist.ini
+echo "/tests/www/$TEST_GROUP/configuration.php" > /tmp/blacklist.ini
 echo "opcache.blacklist_filename=/tmp/blacklist.ini" >> /etc/php/*/apache2/conf.d/10-opcache.ini
 
 echo "[RUNNER] Start Apache"
@@ -43,4 +38,10 @@ if [ ! -f cypress.config.mjs ]; then
     cp cypress.config.dist.mjs cypress.config.mjs
 fi
 
-npx cypress run --browser=$BROWSER --e2e --env cmsPath=/tmp/www/$TEST_GROUP,db_type=$DB_ENGINE,db_host=$DB_HOST,db_password=joomla_ut,db_prefix="${TEST_GROUP}_",logFile=/var/log/apache2/error.log --config baseUrl=https://localhost/$TEST_GROUP,screenshotsFolder=$JOOMLA_BASE/tmp/System/output/screenshots
+# Do an install if the cache folder is empty
+if [ -z "$( ls -A '/root/.cache/Cypress' )" ]; then
+  npx cypress install
+  npx cypress verify
+fi
+
+npx cypress run --browser=$BROWSER --e2e --env cmsPath=/tests/www/$TEST_GROUP,db_type=$DB_ENGINE,db_host=$DB_HOST,db_password=joomla_ut,db_prefix="${TEST_GROUP}_",logFile=/var/log/apache2/error.log --config baseUrl=https://localhost/$TEST_GROUP,screenshotsFolder=$JOOMLA_BASE/tests/System/output/screenshots
