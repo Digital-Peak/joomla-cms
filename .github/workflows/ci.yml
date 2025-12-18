@@ -53,34 +53,6 @@ jobs:
         if: steps.cache-assets.outputs.cache-hit != 'true'
         run: npm ci --unsafe-perm
 
-  tests-system-prepare:
-    name: Prepare system tests
-    runs-on: ubuntu-latest
-    container: joomlaprojects/docker-images:cypress8.4
-    needs: [composer, npm]
-    env:
-      CYPRESS_VERIFY_TIMEOUT: 100000
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache/restore@v4
-        with:
-          path: |
-            node_modules
-            media
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json', 'build/media_source/**', 'administrator/components/com_media/resources/**') }}
-      - uses: actions/cache@v4
-        id: cache-cypress
-        with:
-          path: |
-            /root/.cache/Cypress
-            /github/home/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
-      - name: Install Cypress dependencies
-        if: steps.cache-cypress.outputs.cache-hit != 'true'
-        run: |
-          npx cypress install
-          npx cypress verify
-
   tests-system:
     name: Run system tests
     runs-on: ubuntu-latest
@@ -98,25 +70,12 @@ jobs:
             my_version: '8.4'
     env:
       JOOMLA_INSTALLATION_DISABLE_LOCALHOST_CHECK: 1
-      MOZ_DISABLE_CONTENT_SANDBOX: 1
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache/restore@v4
         with:
           path: libraries/vendor
           key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
-      - uses: actions/cache/restore@v4
-        with:
-          path: |
-            node_modules
-            media
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json', 'build/media_source/**', 'administrator/components/com_media/resources/**') }}
-      - uses: actions/cache/restore@v4
-        with:
-          path: |
-            /root/.cache/Cypress
-            /github/home/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
       - name: Run System tests
         run: bash tests/System/entrypoint.sh "$(pwd)" ${{ matrix.config.test_group }} ${{ matrix.config.db_engine }} ${{ matrix.config.db_host }} ${{ matrix.browser }}
       - name: Archive test results results
